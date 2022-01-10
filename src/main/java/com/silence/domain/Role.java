@@ -2,7 +2,7 @@ package com.silence.domain;
 
 public class Role {
     private Long id;
-    private String roleNmae;
+    private String roleName;
     private String roleDesc;
 
     public Long getId() {
@@ -13,12 +13,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRoleNmae() {
-        return roleNmae;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRoleNmae(String roleNmae) {
-        this.roleNmae = roleNmae;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String getRoleDesc() {
@@ -33,7 +33,7 @@ public class Role {
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", roleNmae='" + roleNmae + '\'' +
+                ", roleName='" + roleName + '\'' +
                 ", roleDesc='" + roleDesc + '\'' +
                 '}';
     }

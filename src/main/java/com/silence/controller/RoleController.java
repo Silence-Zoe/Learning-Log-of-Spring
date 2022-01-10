@@ -15,10 +15,6 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
-    }
-
     @RequestMapping("/list")
     public ModelAndView list() {
         ModelAndView modelAndView = new ModelAndView();

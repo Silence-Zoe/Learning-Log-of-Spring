@@ -1,5 +1,6 @@
 package com.silence.service.impl;
 
+import com.silence.dao.RoleDao;
 import com.silence.domain.Role;
 import com.silence.service.RoleService;
 

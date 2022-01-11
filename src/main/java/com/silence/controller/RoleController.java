@@ -15,6 +15,12 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @RequestMapping("/save")
+    public String save(Role role) {
+        roleService.save(role);
+        return "redirect:/role/list";
+    }
+
     @RequestMapping("/list")
     public ModelAndView list() {
         ModelAndView modelAndView = new ModelAndView();

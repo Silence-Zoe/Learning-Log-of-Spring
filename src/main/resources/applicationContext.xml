@@ -32,4 +32,12 @@
         <property name="roleDao" ref="roleDao"/>
     </bean>
 
+    <bean id="userDao" class="com.silence.dao.impl.UserDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="userService" class="com.silence.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="roleDao" ref="roleDao"/>
+    </bean>
+
 </beans>

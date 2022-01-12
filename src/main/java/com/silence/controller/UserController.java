@@ -1,5 +1,6 @@
 package com.silence.controller;
 
+import com.silence.domain.Role;
 import com.silence.domain.User;
 import com.silence.service.RoleService;
 import com.silence.service.UserService;
@@ -15,6 +16,24 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @RequestMapping("/save")
+    public String save(User user, Long[] roleIds) {
+        userService.save(user, roleIds);
+        return "redirect:/user/list";
+    }
+
+    @RequestMapping("/saveUI")
+    public ModelAndView saveUI() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Role> roleList = roleService.list();
+        modelAndView.addObject("roleList", roleList);
+        modelAndView.setViewName("user-add");
+        return modelAndView;
+    }
 
     @RequestMapping("/list")
     public ModelAndView list() {

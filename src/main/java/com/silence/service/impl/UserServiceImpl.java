@@ -30,4 +30,10 @@ public class UserServiceImpl implements UserService {
         }
         return userList;
     }
+
+    @Override
+    public void save(User user, Long[] roleIds) {
+        Long userId = userDao.save(user);
+        userDao.saveUserRoleRelation(userId, roleIds);
+    }
 }

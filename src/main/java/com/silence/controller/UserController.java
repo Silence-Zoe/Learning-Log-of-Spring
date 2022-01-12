@@ -6,6 +6,7 @@ import com.silence.service.RoleService;
 import com.silence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,12 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+    @RequestMapping("/del/{userId}")
+    public String del(@PathVariable("userId") Long userId) {
+        userService.del(userId);
+        return "redirect:/user/list";
+    }
 
     @RequestMapping("/save")
     public String save(User user, Long[] roleIds) {

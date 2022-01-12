@@ -36,4 +36,10 @@ public class UserServiceImpl implements UserService {
         Long userId = userDao.save(user);
         userDao.saveUserRoleRelation(userId, roleIds);
     }
+
+    @Override
+    public void del(Long userId) {
+        userDao.delUserRoleRel(userId);
+        userDao.del(userId);
+    }
 }

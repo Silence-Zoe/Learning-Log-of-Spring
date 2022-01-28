@@ -2,16 +2,17 @@ package com.silence.dao.impl;
 
 import com.silence.dao.RoleDao;
 import com.silence.domain.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component("roleDao")
 public class RoleDaoImpl implements RoleDao {
+    @Autowired
     private JdbcTemplate jdbcTemplate;
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Role> findAll() {

@@ -5,20 +5,17 @@ import com.silence.dao.UserDao;
 import com.silence.domain.Role;
 import com.silence.domain.User;
 import com.silence.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("userService")
 public class UserServiceImpl implements UserService {
+    @Autowired
     private UserDao userDao;
+    @Autowired
     private RoleDao roleDao;
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public void setRoleDao(RoleDao roleDao) {
-        this.roleDao = roleDao;
-    }
 
     @Override
     public List<User> list() {

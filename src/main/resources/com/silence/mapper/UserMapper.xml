@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.silence.mapper.UserMapper">
+    <select id="findAll" resultType="user">
+        SELECT * FROM sys_user;
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user VALUES(null, #{username}, #{email}, #{password}, #{phoneNum});
+    </insert>
+
+    <insert id="saveUserRoleRelation">
+        INSERT INTO sys_user_role VALUES(#{userId}, #{roleId});
+    </insert>
+
+    <delete id="delUserRoleRel">
+        DELETE FROM sys_user_role WHERE userId = #{userId};
+    </delete>
+
+    <delete id="del">
+        DELETE FROM sys_user WHERE id = #{userId};
+    </delete>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.silence.mapper.RoleMapper">
+    <select id="findAll" resultType="role">
+        SELECT * FROM sys_role;
+    </select>
+
+    <insert id="save" parameterType="role">
+        INSERT INTO sys_role VALUES(null, #{roleName}, #{roleDesc});
+    </insert>
+    
+    <select id="findRoleByUserId" resultType="role">
+        SELECT * FROM sys_user_role AS ur, sys_role AS r WHERE ur.roleId = r.id AND ur.userId = ${id};
+    </select>
+</mapper>

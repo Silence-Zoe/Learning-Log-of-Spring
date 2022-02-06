@@ -8,9 +8,9 @@ import java.util.List;
 
 @Service
 public interface BookService {
-    void saveBook(BookDO bookDO);
-    void updateBookById(BookDO bookDO);
-    void removeBookById(Integer id);
+    Boolean saveBook(BookDO bookDO);
+    Boolean updateBookById(BookDO bookDO);
+    Boolean removeBookById(Integer id);
     BookDO getBookById(Integer id);
     List<BookDO> listBooks();
     List<BookDO> getBookPage(int pageNumber, int pageSize);

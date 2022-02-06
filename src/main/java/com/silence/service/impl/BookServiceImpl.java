@@ -15,18 +15,18 @@ public class BookServiceImpl implements BookService {
     private BookMapper bookMapper;
 
     @Override
-    public void saveBook(BookDO bookDO) {
-        bookMapper.saveBook(bookDO);
+    public Boolean saveBook(BookDO bookDO) {
+        return bookMapper.saveBook(bookDO) != 0;
     }
 
     @Override
-    public void updateBookById(BookDO bookDO) {
-        bookMapper.updateBookById(bookDO);
+    public Boolean updateBookById(BookDO bookDO) {
+        return bookMapper.updateBookById(bookDO) != 0;
     }
 
     @Override
-    public void removeBookById(Integer id) {
-        bookMapper.removeBookById(id);
+    public Boolean removeBookById(Integer id) {
+        return bookMapper.removeBookById(id) != 0;
     }
 
     @Override

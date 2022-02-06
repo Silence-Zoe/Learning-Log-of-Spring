@@ -26,21 +26,21 @@ public class BookMapperTest {
         bookDO.setType("测试一下");
         bookDO.setName("呵呵呵");
         bookDO.setDescription("测试用的书");
-        bookMapper.saveBook(bookDO);
+        System.out.println(bookMapper.saveBook(bookDO));
     }
 
     @Test
     void removeBookByIdTest() {
-        bookMapper.removeBookById(14);
+        System.out.println(bookMapper.removeBookById(16));
     }
 
     @Test
     void updateBookByIdTest() {
         BookDO bookDO = new BookDO();
-        bookDO.setId(13);
+        bookDO.setId(19);
         bookDO.setType("测试修改");
         bookDO.setName("测试一下修改");
-        bookDO.setDescription("abaabaaba");
-        bookMapper.updateBookById(bookDO);
+        bookDO.setDescription("abab");
+        System.out.println(bookMapper.updateBookById(bookDO));
     }
 }

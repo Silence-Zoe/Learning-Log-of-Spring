@@ -13,4 +13,9 @@ public class BookServiceTest {
     void getBookPageTest() {
         System.out.println(bookService.getBookPage(2, 5));
     }
+
+    @Test
+    void getBookByIdTest() {
+        System.out.println(bookService.getBookById(15));
+    }
 }

@@ -14,11 +14,11 @@ public interface BookMapper {
     List<BookDO> listBooks();
 
     @Insert("INSERT INTO tbl_book(type, name, description) VALUES (#{type}, #{name}, #{description})")
-    void saveBook(BookDO bookDO);
+    int saveBook(BookDO bookDO);
 
     @Delete("DELETE FROM tbl_book WHERE id = #{id}")
-    void removeBookById(Integer id);
+    int removeBookById(Integer id);
 
     @Update("UPDATE tbl_book SET type = #{type}, name = #{name}, description = #{description} WHERE id = #{id}")
-    void updateBookById(BookDO bookDO);
+    int updateBookById(BookDO bookDO);
 }

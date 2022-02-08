@@ -15,4 +15,5 @@ public interface BookService {
     BookDO getBookById(Integer id);
     List<BookDO> listBooks();
     PageInfo<BookDO> getBookPage(int pageNumber, int pageSize);
+    PageInfo<BookDO> getBookPage(int pageNumber, int pageSize, BookDO bookDO);
 }

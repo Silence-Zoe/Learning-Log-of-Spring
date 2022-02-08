@@ -43,4 +43,19 @@ public class BookMapperTest {
         bookDO.setDescription("abab");
         System.out.println(bookMapper.updateBookById(bookDO));
     }
+
+    @Test
+    void selectBookByTypeTest() {
+        System.out.println(bookMapper.selectByType("算"));
+    }
+
+    @Test
+    void selectBookByNameTest() {
+        System.out.println(bookMapper.selectByName("Spring"));
+    }
+
+    @Test
+    void selectBookByDescriptionTest() {
+        System.out.println(bookMapper.selectByDescription("全"));
+    }
 }

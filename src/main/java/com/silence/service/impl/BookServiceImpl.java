@@ -1,5 +1,6 @@
 package com.silence.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.silence.DO.BookDO;
@@ -45,4 +46,35 @@ public class BookServiceImpl implements BookService {
         PageHelper.startPage(pageNumber, pageSize);
         return new PageInfo<>(bookMapper.listBooks());
     }
+
+    @Override
+    public PageInfo<BookDO> getBookPage(int pageNumber, int pageSize, BookDO bookDO) {
+        List<BookDO> list = bookMapper.listBooks();
+        String type = bookDO.getType();
+        String name = bookDO.getName();
+        String description = bookDO.getDescription();
+        if (type != null) {
+            list.retainAll(bookMapper.selectByType(type));
+        }
+        if (name != null) {
+            list.retainAll(bookMapper.selectByName(name));
+        }
+        if (description != null) {
+            list.retainAll(bookMapper.selectByDescription(description));
+        }
+
+        // 对List进行分页
+        // 创建Page类
+        Page page = new Page(pageNumber, pageSize);
+        // 为Page类中的total属性赋值
+        page.setTotal(list.size());
+        // 计算当前需要显示的数据下标起始值
+        int startIndex = (pageNumber - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, list.size());
+        // 从链表中截取需要显示的子链表，并加入到Page
+        page.addAll(list.subList(startIndex,endIndex));
+        // 以Page创建PageInfo
+        return new PageInfo<>(page);
+    }
+
 }

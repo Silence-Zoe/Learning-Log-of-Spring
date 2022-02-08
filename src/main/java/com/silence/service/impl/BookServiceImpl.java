@@ -1,6 +1,7 @@
 package com.silence.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.silence.DO.BookDO;
 import com.silence.mapper.BookMapper;
 import com.silence.service.BookService;
@@ -40,8 +41,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDO> getBookPage(int pageNumber, int pageSize) {
+    public PageInfo<BookDO> getBookPage(int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        return bookMapper.listBooks();
+        return new PageInfo<>(bookMapper.listBooks());
     }
 }

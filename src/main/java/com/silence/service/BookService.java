@@ -1,5 +1,6 @@
 package com.silence.service;
 
+import com.github.pagehelper.PageInfo;
 import com.silence.DO.BookDO;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +14,5 @@ public interface BookService {
     Boolean removeBookById(Integer id);
     BookDO getBookById(Integer id);
     List<BookDO> listBooks();
-    List<BookDO> getBookPage(int pageNumber, int pageSize);
+    PageInfo<BookDO> getBookPage(int pageNumber, int pageSize);
 }

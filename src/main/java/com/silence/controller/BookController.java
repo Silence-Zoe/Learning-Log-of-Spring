@@ -19,17 +19,20 @@ public class BookController {
 
     @PostMapping
     public R saveBook(@RequestBody BookDO bookDO) {
-        return new R(bookService.saveBook(bookDO));
+        Boolean flag = bookService.saveBook(bookDO);
+        return new R(flag, flag ? "添加成功！" : "添加失败...");
     }
 
     @PutMapping
     public R updateBookById(@RequestBody BookDO bookDO) {
-        return new R(bookService.updateBookById(bookDO));
+        Boolean flag = bookService.updateBookById(bookDO);
+        return new R(flag, flag ? "修改成功！" : "修改失败，请重试...");
     }
 
     @DeleteMapping("{id}")
     public R removeBookById(@PathVariable Integer id) {
-        return new R(bookService.removeBookById(id));
+        Boolean flag = bookService.removeBookById(id);
+        return new R(flag, flag ? "删除成功！" : "删除失败...");
     }
 
     @GetMapping("{id}")

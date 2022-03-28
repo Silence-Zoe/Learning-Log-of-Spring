@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.silence.mapper.DiscussPostMapper">
+    <sql id="allFileds">
+        id, user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+
+    <select id="listPage" resultType="com.silence.DO.DiscussPostDO">
+        SELECT <include refid="allFileds"></include>
+          FROM discuss_post
+         WHERE status != 2
+        <if test="userId != 0">
+           AND user_id = #{userId}
+        </if>
+         ORDER BY type DESC, create_time DESC
+         LIMIT #{pageNum}, #{pageSize};
+    </select>
+
+    <select id="countRows" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+        FROM discuss_post
+        WHERE status != 2
+        <if test="userId != 0">
+            AND user_id = #{userId}
+        </if>
+    </select>
+</mapper>

@@ -13,8 +13,8 @@ public class DiscussPostService {
     @Autowired
     private DiscussPostMapper discussPostMapper;
 
-    public List<DiscussPostDO> listPage(Integer userId, int pageNum, int pageSize) {
-        return discussPostMapper.listPage(userId, pageNum, pageSize);
+    public List<DiscussPostDO> listPage(Integer userId, int offSet, int pageSize) {
+        return discussPostMapper.listPage(userId, offSet, pageSize);
     }
 
     public int countRows(Integer userId) {

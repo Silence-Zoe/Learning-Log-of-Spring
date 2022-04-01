@@ -14,7 +14,7 @@
            AND user_id = #{userId}
         </if>
          ORDER BY type DESC, create_time DESC
-         LIMIT #{pageNum}, #{pageSize};
+         LIMIT #{offSet}, #{pageSize};
     </select>
 
     <select id="countRows" resultType="java.lang.Integer">

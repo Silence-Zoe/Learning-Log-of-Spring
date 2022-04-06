@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class CommunityUtil {
 
-    public static String geenrateUUID() {
+    public static String genrateUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 

@@ -1,6 +1,7 @@
 package com.silence.controller;
 
 import com.silence.DO.UserDO;
+import com.silence.annotation.LoginRequired;
 import com.silence.service.UserService;
 import com.silence.util.CommunityUtil;
 import com.silence.util.HostHolder;
@@ -44,11 +45,13 @@ public class UserController {
     @Autowired
     private HostHolder hostHolder;
 
+    @LoginRequired
     @GetMapping("/setting")
     public String getSettingPage() {
         return "/site/setting";
     }
 
+    @LoginRequired
     @PostMapping("/upload")
     public String uploadHeader(MultipartFile headerImage, Model model) {
         if (headerImage == null) {

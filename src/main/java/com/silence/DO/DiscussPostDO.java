@@ -85,6 +85,10 @@ public class DiscussPostDO {
         this.score = score;
     }
 
+    public DiscussPostDO() {
+
+    }
+
     public DiscussPostDO(Integer id, Integer userId, String title, String content, Integer type, Integer status, Date createTime, Integer commentCount, Double score) {
         this.id = id;
         this.userId = userId;

@@ -38,4 +38,9 @@ public class DiscussPostService {
 
         return discussPostMapper.saveDiscussPost(discussPost);
     }
+
+    public DiscussPostDO getById(Integer id) {
+        return discussPostMapper.getById(id);
+    }
+
 }

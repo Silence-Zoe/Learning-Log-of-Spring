@@ -13,4 +13,6 @@ public interface DiscussPostMapper {
     int countRows(@Param("userId") Integer userId);
 
     int saveDiscussPost(DiscussPostDO discussPost);
+
+    DiscussPostDO getById(@Param("id") Integer id);
 }

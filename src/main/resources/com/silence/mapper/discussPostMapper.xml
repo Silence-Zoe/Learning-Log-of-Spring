@@ -30,4 +30,10 @@
         INSERT INTO discuss_post
         VALUES(null, #{userId}, #{title}, #{content}, #{type}, #{status}, #{createTime}, #{commentCount}, #{score});
     </insert>
+
+    <select id="getById" resultType="DiscussPostDO">
+        SELECT <include refid="allFileds"/>
+          FROM discuss_post
+         WHERE id = #{id};
+    </select>
 </mapper>

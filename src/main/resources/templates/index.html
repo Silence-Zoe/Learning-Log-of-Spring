@@ -124,7 +124,7 @@
 						</a>
 						<div class="media-body">
 							<h6 class="mt-0 mb-3">
-								<a href="#" th:utext="${map.post.getTitle()}"></a>
+								<a th:href="@{|/discuss/detail/${map.post.getId()}|}" th:utext="${map.post.getTitle()}"></a>
 								<span class="badge badge-secondary bg-primary" th:if="${map.post.getType()==1}">置顶</span>
 								<span class="badge badge-secondary bg-danger" th:if="${map.post.getStatus()==1}">精华</span>
 							</h6>

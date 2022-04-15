@@ -15,4 +15,7 @@ public interface DiscussPostMapper {
     int saveDiscussPost(DiscussPostDO discussPost);
 
     DiscussPostDO getById(@Param("id") Integer id);
+
+    int updateCommentCount(@Param("id") Integer id, @Param("commentCount") Integer commentCount);
+
 }

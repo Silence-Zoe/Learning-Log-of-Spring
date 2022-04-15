@@ -25,4 +25,9 @@
            AND entity_id = #{entityId};
     </select>
 
+    <insert id="saveComment">
+        INSERT INTO comment
+        VALUES(null, #{userId}, #{entityType}, #{entityId}, #{targetId}, #{content}, #{status}, #{createTime});
+    </insert>
+
 </mapper>

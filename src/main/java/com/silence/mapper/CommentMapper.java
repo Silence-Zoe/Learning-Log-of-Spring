@@ -13,4 +13,6 @@ public interface CommentMapper {
 
     int countRows(@Param("entityType") Integer entityType, @Param("entityId") Integer entityId);
 
+    int saveComment(CommentDO comment);
+
 }

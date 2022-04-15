@@ -2,7 +2,7 @@ package com.silence.controller;
 
 import com.silence.DO.DiscussPostDO;
 import com.silence.DO.UserDO;
-import com.silence.VO.DiscussPostPageVO;
+import com.silence.VO.PageVO;
 import com.silence.service.DiscussPostService;
 import com.silence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +26,11 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String getIndexPage(Model model, DiscussPostPageVO page) {
+    public String getIndexPage(Model model, PageVO page) {
         page.setRows(discussPostService.countRows(0));
         page.setPath("/index");
 
-        int offset = page.getOffSet();
-        List<DiscussPostDO> list = discussPostService.listPage(0, page.getOffSet(), page.getPageSize());
+        List<DiscussPostDO> list = discussPostService.listPage(0, page.getOffset(), page.getPageSize());
         List<Map<String, Object>> discussPosts = new ArrayList<>();
         if (list != null) {
             for (DiscussPostDO post : list) {

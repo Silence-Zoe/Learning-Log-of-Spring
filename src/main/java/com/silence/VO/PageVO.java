@@ -1,6 +1,6 @@
 package com.silence.VO;
 
-public class DiscussPostPageVO {
+public class PageVO {
     private int pageNum = 1;
     private int pageSize = 10;
     private int rows;
@@ -43,7 +43,7 @@ public class DiscussPostPageVO {
         this.path = path;
     }
 
-    public int getOffSet() {
+    public int getOffset() {
         return (pageNum - 1) * pageSize;
     }
 
@@ -53,7 +53,7 @@ public class DiscussPostPageVO {
 
     public int getFrom() {
         if (pageNum >= getTotal() - 2) {
-            return getTotal() - 4;
+            return Math.max(getTotal() - 4, 1);
         }
         int from = pageNum - 2;
         return Math.max(from, 1);
@@ -61,9 +61,19 @@ public class DiscussPostPageVO {
 
     public int getTo() {
         if (pageNum <= 3) {
-            return 5;
+            return Math.min(5, getTotal());
         }
         int to = pageNum + 2;
         return Math.min(to, getTotal());
+    }
+
+    @Override
+    public String toString() {
+        return "PageVO{" +
+                "pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", rows=" + rows +
+                ", path='" + path + '\'' +
+                '}';
     }
 }

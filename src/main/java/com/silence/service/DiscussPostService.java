@@ -35,6 +35,8 @@ public class DiscussPostService {
         discussPost.setContent(HtmlUtils.htmlEscape(discussPost.getContent()));
         discussPost.setTitle(sensitiveFilter.filter(discussPost.getTitle()));
         discussPost.setContent(sensitiveFilter.filter(discussPost.getContent()));
+        discussPost.setCommentCount(0);
+        discussPost.setScore(0d);
 
         return discussPostMapper.saveDiscussPost(discussPost);
     }

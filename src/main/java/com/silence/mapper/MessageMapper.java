@@ -19,4 +19,8 @@ public interface MessageMapper {
 
     int countUnreadLetters(@Param("userId") Integer userId, @Param("conversationId") String conversationId);
 
+    int saveMessage(MessageDO message);
+
+    int updateStatus(@Param("ids") List<Integer> ids, @Param("status") Integer status);
+
 }

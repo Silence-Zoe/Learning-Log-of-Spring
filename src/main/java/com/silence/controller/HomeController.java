@@ -4,7 +4,9 @@ import com.silence.DO.DiscussPostDO;
 import com.silence.DO.UserDO;
 import com.silence.VO.PageVO;
 import com.silence.service.DiscussPostService;
+import com.silence.service.LikeService;
 import com.silence.service.UserService;
+import com.silence.util.CommunityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class HomeController {
+public class HomeController implements CommunityConstant {
 
     @Autowired
     private DiscussPostService discussPostService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LikeService likeService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String getIndexPage(Model model, PageVO page) {
@@ -39,6 +44,8 @@ public class HomeController {
                 map.put("post", post);
                 UserDO user = userService.getById(post.getUserId());
                 map.put("user", user);
+                long likeCount = likeService.getEntityLikeCount(ENTITY_TYPE_POST, post.getId());
+                map.put("likeCount", likeCount);
                 discussPosts.add(map);
             }
         }

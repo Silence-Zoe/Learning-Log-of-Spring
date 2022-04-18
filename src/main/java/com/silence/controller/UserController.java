@@ -2,6 +2,7 @@ package com.silence.controller;
 
 import com.silence.DO.UserDO;
 import com.silence.annotation.LoginRequired;
+import com.silence.service.LikeService;
 import com.silence.service.UserService;
 import com.silence.util.CommunityUtil;
 import com.silence.util.HostHolder;
@@ -44,6 +45,9 @@ public class UserController {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private LikeService likeService;
 
     @LoginRequired
     @GetMapping("/setting")
@@ -100,4 +104,19 @@ public class UserController {
             logger.error("读取头像失败：" + e.getMessage());
         }
     }
+
+    @GetMapping("/profile/{userId}")
+    public String getProfilePage(@PathVariable("userId") Integer userId, Model model) {
+        UserDO user = userService.getById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在！");
+        }
+
+        model.addAttribute("user", user);
+        int likeCount = likeService.getUserLikeCount(userId);
+        model.addAttribute("likeCount", likeCount);
+
+        return "/site/profile";
+    }
+
 }

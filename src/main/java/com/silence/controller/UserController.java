@@ -2,8 +2,10 @@ package com.silence.controller;
 
 import com.silence.DO.UserDO;
 import com.silence.annotation.LoginRequired;
+import com.silence.service.FollowService;
 import com.silence.service.LikeService;
 import com.silence.service.UserService;
+import com.silence.util.CommunityConstant;
 import com.silence.util.CommunityUtil;
 import com.silence.util.HostHolder;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +29,7 @@ import java.io.OutputStream;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements CommunityConstant {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -48,6 +50,9 @@ public class UserController {
 
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private FollowService followService;
 
     @LoginRequired
     @GetMapping("/setting")
@@ -115,6 +120,17 @@ public class UserController {
         model.addAttribute("user", user);
         int likeCount = likeService.getUserLikeCount(userId);
         model.addAttribute("likeCount", likeCount);
+
+        long followeeCount = followService.getFolloweeCount(userId, ENTITY_TYPE_USER);
+        model.addAttribute("followeeCount", followeeCount);
+        long followerCount = followService.getFollowerCount(ENTITY_TYPE_USER, userId);
+        model.addAttribute("followerCount", followerCount);
+
+        boolean hasFollowed = false;
+        if (hostHolder.getUser() != null) {
+            hasFollowed = followService.hasFollowed(hostHolder.getUser().getId(), ENTITY_TYPE_USER, userId);
+        }
+        model.addAttribute("hasFollowed", hasFollowed);
 
         return "/site/profile";
     }

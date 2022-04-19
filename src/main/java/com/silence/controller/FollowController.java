@@ -1,22 +1,34 @@
 package com.silence.controller;
 
 import com.silence.DO.UserDO;
+import com.silence.VO.PageVO;
 import com.silence.service.FollowService;
+import com.silence.service.UserService;
+import com.silence.util.CommunityConstant;
 import com.silence.util.CommunityUtil;
 import com.silence.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
-public class FollowController {
+public class FollowController implements CommunityConstant {
 
     @Autowired
     private HostHolder hostHolder;
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/follow")
     @ResponseBody
@@ -36,6 +48,63 @@ public class FollowController {
         followService.unfollow(user.getId(), entityType, entityId);
 
         return CommunityUtil.getJSONString(0, "已取消关注！");
+    }
+
+    @GetMapping("/followees/{userId}")
+    public String listFollowees(@PathVariable("userId") Integer userId, PageVO page, Model model) {
+        UserDO user = userService.getById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在！");
+        }
+        model.addAttribute("user", user);
+
+        page.setPageSize(5);
+        page.setPath("/followees/" + userId);
+        page.setRows((int) followService.getFolloweeCount(userId, ENTITY_TYPE_USER));
+
+        List<Map<String, Object>> userList = followService.listFollowees(userId, page.getOffset(), page.getPageSize());
+        if (userList != null) {
+            for (Map<String, Object> map : userList) {
+                UserDO u = (UserDO) map.get("user");
+                map.put("hasFollowed", hasFollowed(u.getId()));
+            }
+        }
+        model.addAttribute("users", userList);
+        model.addAttribute("page", page);
+
+        return "/site/followee";
+    }
+
+    @GetMapping("/followers/{userId}")
+    public String listFollowers(@PathVariable("userId") Integer userId, PageVO page, Model model) {
+        UserDO user = userService.getById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在！");
+        }
+        model.addAttribute("user", user);
+
+        page.setPageSize(5);
+        page.setPath("/followees/" + userId);
+        page.setRows((int) followService.getFollowerCount(ENTITY_TYPE_USER, userId));
+
+        List<Map<String, Object>> userList = followService.listFollowers(userId, page.getOffset(), page.getPageSize());
+        if (userList != null) {
+            for (Map<String, Object> map : userList) {
+                UserDO u = (UserDO) map.get("user");
+                map.put("hasFollowed", hasFollowed(u.getId()));
+            }
+        }
+        model.addAttribute("users", userList);
+        model.addAttribute("page", page);
+
+        return "/site/follower";
+    }
+
+    private boolean hasFollowed(Integer userId) {
+        if (hostHolder.getUser() == null) {
+            return false;
+        }
+        return followService.hasFollowed(hostHolder.getUser().getId(), ENTITY_TYPE_USER, userId);
     }
 
 }

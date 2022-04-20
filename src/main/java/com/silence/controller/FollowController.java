@@ -1,7 +1,7 @@
 package com.silence.controller;
 
 import com.silence.DO.UserDO;
-import com.silence.VO.PageVO;
+import com.silence.DTO.PageDTO;
 import com.silence.service.FollowService;
 import com.silence.service.UserService;
 import com.silence.util.CommunityConstant;
@@ -51,7 +51,7 @@ public class FollowController implements CommunityConstant {
     }
 
     @GetMapping("/followees/{userId}")
-    public String listFollowees(@PathVariable("userId") Integer userId, PageVO page, Model model) {
+    public String listFollowees(@PathVariable("userId") Integer userId, PageDTO page, Model model) {
         UserDO user = userService.getById(userId);
         if (user == null) {
             throw new RuntimeException("该用户不存在！");
@@ -76,7 +76,7 @@ public class FollowController implements CommunityConstant {
     }
 
     @GetMapping("/followers/{userId}")
-    public String listFollowers(@PathVariable("userId") Integer userId, PageVO page, Model model) {
+    public String listFollowers(@PathVariable("userId") Integer userId, PageDTO page, Model model) {
         UserDO user = userService.getById(userId);
         if (user == null) {
             throw new RuntimeException("该用户不存在！");

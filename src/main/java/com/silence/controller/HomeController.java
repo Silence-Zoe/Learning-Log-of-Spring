@@ -2,7 +2,7 @@ package com.silence.controller;
 
 import com.silence.DO.DiscussPostDO;
 import com.silence.DO.UserDO;
-import com.silence.VO.PageVO;
+import com.silence.DTO.PageDTO;
 import com.silence.service.DiscussPostService;
 import com.silence.service.LikeService;
 import com.silence.service.UserService;
@@ -32,7 +32,7 @@ public class HomeController implements CommunityConstant {
     private LikeService likeService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String getIndexPage(Model model, PageVO page) {
+    public String getIndexPage(Model model, PageDTO page) {
         page.setRows(discussPostService.countRows(0));
         page.setPath("/index");
 

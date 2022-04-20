@@ -1,6 +1,6 @@
-package com.silence.VO;
+package com.silence.DTO;
 
-public class PageVO {
+public class PageDTO {
     private int pageNum = 1;
     private int pageSize = 10;
     private int rows;
@@ -69,7 +69,7 @@ public class PageVO {
 
     @Override
     public String toString() {
-        return "PageVO{" +
+        return "PageDTO{" +
                 "pageNum=" + pageNum +
                 ", pageSize=" + pageSize +
                 ", rows=" + rows +

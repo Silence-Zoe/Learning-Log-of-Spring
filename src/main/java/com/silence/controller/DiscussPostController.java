@@ -3,7 +3,7 @@ package com.silence.controller;
 import com.silence.DO.CommentDO;
 import com.silence.DO.DiscussPostDO;
 import com.silence.DO.UserDO;
-import com.silence.VO.PageVO;
+import com.silence.DTO.PageDTO;
 import com.silence.service.CommentService;
 import com.silence.service.DiscussPostService;
 import com.silence.service.LikeService;
@@ -59,7 +59,7 @@ public class DiscussPostController implements CommunityConstant {
 
 
     @GetMapping("/detail/{discussPostId}")
-    public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, PageVO page) {
+    public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, PageDTO page) {
         DiscussPostDO post = discussPostService.getById(discussPostId);
         model.addAttribute("post", post);
         UserDO user = userService.getById(post.getUserId());

@@ -2,7 +2,7 @@ package com.silence.controller;
 
 import com.silence.DO.MessageDO;
 import com.silence.DO.UserDO;
-import com.silence.VO.PageVO;
+import com.silence.DTO.PageDTO;
 import com.silence.service.MessageService;
 import com.silence.service.UserService;
 import com.silence.util.CommunityUtil;
@@ -30,7 +30,7 @@ public class MessageController {
     private UserService userService;
 
     @GetMapping("/letter/list")
-    public String getLetterList(Model model, PageVO page) {
+    public String getLetterList(Model model, PageDTO page) {
         UserDO user = hostHolder.getUser();
 
         page.setPageSize(5);
@@ -62,7 +62,7 @@ public class MessageController {
     }
 
     @GetMapping("/letter/detail/{conversationId}")
-    public String getLetterDetail(@PathVariable("conversationId") String conversationId, PageVO page, Model model) {
+    public String getLetterDetail(@PathVariable("conversationId") String conversationId, PageDTO page, Model model) {
         page.setPageSize(5);
         page.setPath("/letter/detail/" + conversationId);
         page.setRows(messageService.countLettersByConversationId(conversationId));
@@ -101,7 +101,7 @@ public class MessageController {
 
         if (letterList != null) {
             for (MessageDO message : letterList) {
-                if (hostHolder.getUser().getId() == message.getToId() && message.getStatus() == 0) {
+                if (hostHolder.getUser().getId().equals(message.getToId()) && message.getStatus() == 0) {
                     ids.add(message.getId());
                 }
             }

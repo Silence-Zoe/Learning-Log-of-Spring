@@ -7,9 +7,11 @@ import com.silence.mapper.UserMapper;
 import com.silence.util.CommunityConstant;
 import com.silence.util.CommunityUtil;
 import com.silence.util.MailClient;
+import com.silence.util.RedisKeyUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService implements CommunityConstant {
@@ -37,11 +40,18 @@ public class UserService implements CommunityConstant {
     @Value("${community.path.domain}")
     private String domain;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
     public UserDO getById(Integer id) {
-        return userMapper.getById(id);
+        UserDO user = getCache(id);
+        if (user == null) {
+            user = initCache(id);
+        }
+        return user;
     }
 
     public Map<String, Object> register(UserDO user) {
@@ -98,6 +108,7 @@ public class UserService implements CommunityConstant {
             return ACTIVATION_REPEAT;
         } else if (user.getActivationCode().equals(code)) {
             userMapper.updateStatusById(userId, ACTIVATION_REPEAT);
+            clearCache(userId);
             return ACTIVATION_SUCCESS;
         } else {
             return ACTIVATION_FAILURE;
@@ -152,11 +163,30 @@ public class UserService implements CommunityConstant {
     }
 
     public int updateHeader(Integer userId, String headerUrl) {
-        return userMapper.updateHeaderUrlById(userId, headerUrl);
+        int rows = userMapper.updateHeaderUrlById(userId, headerUrl);
+        clearCache(userId);
+        return rows;
     }
 
     public UserDO getByName(String username) {
         return userMapper.getByName(username);
+    }
+
+    private UserDO getCache(Integer userId) {
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        return (UserDO) redisTemplate.opsForValue().get(redisKey);
+    }
+
+    private UserDO initCache(Integer userId) {
+        UserDO user = userMapper.getById(userId);
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
+        return user;
+    }
+
+    private void clearCache(Integer userId) {
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.delete(redisKey);
     }
 
 }

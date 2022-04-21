@@ -30,4 +30,9 @@
         VALUES(null, #{userId}, #{entityType}, #{entityId}, #{targetId}, #{content}, #{status}, #{createTime});
     </insert>
 
+    <select id="getById" resultType="CommentDO">
+        SELECT <include refid="allFields"/>
+          FROM comment
+         WHERE id = #{id};
+    </select>
 </mapper>

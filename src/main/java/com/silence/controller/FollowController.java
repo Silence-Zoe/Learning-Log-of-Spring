@@ -1,7 +1,9 @@
 package com.silence.controller;
 
 import com.silence.DO.UserDO;
+import com.silence.DTO.EventDTO;
 import com.silence.DTO.PageDTO;
+import com.silence.event.EventProducer;
 import com.silence.service.FollowService;
 import com.silence.service.UserService;
 import com.silence.util.CommunityConstant;
@@ -30,12 +32,23 @@ public class FollowController implements CommunityConstant {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @PostMapping("/follow")
     @ResponseBody
     public String follow(Integer entityType, Integer entityId) {
         UserDO user = hostHolder.getUser();
 
         followService.follow(user.getId(), entityType, entityId);
+
+        EventDTO event = new EventDTO()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0, "关注成功！");
     }

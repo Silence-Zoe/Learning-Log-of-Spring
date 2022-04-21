@@ -15,4 +15,6 @@ public interface CommentMapper {
 
     int saveComment(CommentDO comment);
 
+    CommentDO getById(@Param("id") Integer id);
+
 }

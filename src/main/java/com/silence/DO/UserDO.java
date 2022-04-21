@@ -110,6 +110,10 @@ public class UserDO {
                 '}';
     }
 
+    public UserDO() {
+        
+    }
+
     public UserDO(Integer id, String username, String password, String salt, String email, Integer type, Integer status, String activationCode, String headerUrl, Date createTime) {
         this.id = id;
         this.username = username;

@@ -85,10 +85,12 @@
 						<div class="text-muted mt-3">
 							发布于 <b th:text="${#dates.format(post.getCreateTime(), 'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
 							<ul class="d-inline float-right">
-								<li class="d-inline ml-2"><a href="javascript:;" th:onclick="|like(this, 1, ${post.getId()}, ${post.getUserId()})|" class="text-primary">
-									<b th:text="${likeStatus == 1 ? '已赞' : '赞'}">赞</b>
-									<i th:text="${likeCount}">11</i>
-								</a></li>
+								<li class="d-inline ml-2">
+									<a href="javascript:;" th:onclick="|like(this, 1, ${post.getId()}, ${post.getUserId()}, ${post.getId()})|" class="text-primary">
+										<b th:text="${likeStatus == 1 ? '已赞' : '赞'}">赞</b>
+										<i th:text="${likeCount}">11</i>
+									</a>
+								</li>
 								<li class="d-inline ml-2">|</li>
 								<li class="d-inline ml-2"><a href="#replyform" class="text-primary">回帖 <i th:text="${post.getCommentCount()}"/></a></li>
 							</ul>
@@ -139,7 +141,7 @@
 								<span>发布于 <b th:text="${#dates.format(cvo.comment.getCreateTime(), 'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b></span>
 								<ul class="d-inline float-right">
 									<li class="d-inline ml-2">
-										<a href="javascript:;" th:onclick="|like(this, 2, ${cvo.comment.getId()}, ${cvo.comment.getUserId()});|" class="text-primary">
+										<a href="javascript:;" th:onclick="|like(this, 2, ${cvo.comment.getId()}, ${cvo.comment.getUserId()}, ${post.getId()});|" class="text-primary">
 											<b th:text="${cvo.likeStatus == 1 ? '已赞' : '赞'}">赞</b>
 											(<i th:text="${cvo.likeCount}">1</i>)
 										</a>
@@ -162,7 +164,7 @@
 										<span th:text="${#dates.format(rvo.reply.getCreateTime(), 'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</span>
 										<ul class="d-inline float-right">
 											<li class="d-inline ml-2">
-												<a href="javascript:;" th:onclick="|like(this, 2, ${rvo.reply.getId()}, ${rvo.reply.getUserId()})|" class="text-primary">
+												<a href="javascript:;" th:onclick="|like(this, 2, ${rvo.reply.getId()}, ${rvo.reply.getUserId()}, ${post.getId()})|" class="text-primary">
 													 <b th:text="${rvo.likeStatus == 1 ? '已赞' : '赞'}">赞</b>
 													(<i th:text="${rvo.likeCount}">1</i>)
 												</a>

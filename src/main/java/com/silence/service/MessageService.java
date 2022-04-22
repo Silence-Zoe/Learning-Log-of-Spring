@@ -48,4 +48,20 @@ public class MessageService {
         return messageMapper.updateStatus(ids, 1);
     }
 
+    public MessageDO getLatestNotice(Integer userId, String topic) {
+        return messageMapper.getLatestNotice(userId, topic);
+    }
+
+    public int countNotice(Integer userId, String topic) {
+        return messageMapper.countNotice(userId, topic);
+    }
+
+    public int countUnreadNotice(Integer userId, String topic) {
+        return messageMapper.countUnreadNotice(userId, topic);
+    }
+
+    public List<MessageDO> listNotices(Integer userId, String topic, int offset, int limit) {
+        return messageMapper.listNotices(userId, topic, offset, limit);
+    }
+
 }

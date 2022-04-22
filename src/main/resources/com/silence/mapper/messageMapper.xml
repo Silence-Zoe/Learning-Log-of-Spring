@@ -77,4 +77,49 @@
          </foreach>
     </update>
 
+    <select id="getLatestNotice" resultType="MessageDO">
+        SELECT <include refid="allFields"/>
+        FROM message
+        WHERE id IN (
+        SELECT max(id)
+            FROM message
+            WHERE status != 2
+            AND from_id = 1
+            AND to_id = #{userId}
+            AND conversation_id = #{topic}
+        );
+    </select>
+
+    <select id="countNotice" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+          FROM message
+         WHERE status != 2
+           AND from_id = 1
+           AND to_id = #{userId}
+           AND conversation_id = #{topic};
+    </select>
+
+    <select id="countUnreadNotice" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+          FROM message
+         WHERE status = 0
+           AND from_id = 1
+           AND to_id = #{userId}
+           <if test="topic != null">
+               AND conversation_id = #{topic}
+           </if>;
+    </select>
+
+    <select id="listNotices" resultType="MessageDO">
+        SELECT <include refid="allFields"/>
+          FROM message
+         WHERE status != 2
+           AND from_id = 1
+           AND to_id = #{userId}
+           AND conversation_id = #{topic}
+         ORDER BY create_time DESC
+         LIMIT #{offset}, #{pageSize};
+    </select>
+
+
 </mapper>

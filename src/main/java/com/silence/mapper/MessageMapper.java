@@ -23,4 +23,12 @@ public interface MessageMapper {
 
     int updateStatus(@Param("ids") List<Integer> ids, @Param("status") Integer status);
 
+    MessageDO getLatestNotice(@Param("userId") Integer userId, @Param("topic") String topic);
+
+    Integer countNotice(@Param("userId") Integer userId, @Param("topic") String topic);
+
+    Integer countUnreadNotice(@Param("userId") Integer userId, @Param("topic") String topic);
+
+    List<MessageDO> listNotices(@Param("userId") Integer userId, @Param("topic") String topic, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
 }

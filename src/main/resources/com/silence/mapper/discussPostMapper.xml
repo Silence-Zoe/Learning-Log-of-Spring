@@ -26,7 +26,7 @@
         </if>
     </select>
 
-    <insert id="saveDiscussPost">
+    <insert id="saveDiscussPost" keyProperty="id">
         INSERT INTO discuss_post
         VALUES(null, #{userId}, #{title}, #{content}, #{type}, #{status}, #{createTime}, #{commentCount}, #{score});
     </insert>

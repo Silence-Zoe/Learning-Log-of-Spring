@@ -3,7 +3,9 @@ package com.silence.controller;
 import com.silence.DO.CommentDO;
 import com.silence.DO.DiscussPostDO;
 import com.silence.DO.UserDO;
+import com.silence.DTO.EventDTO;
 import com.silence.DTO.PageDTO;
+import com.silence.event.EventProducer;
 import com.silence.service.CommentService;
 import com.silence.service.DiscussPostService;
 import com.silence.service.LikeService;
@@ -37,6 +39,9 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @PostMapping("/add")
     @ResponseBody
     public String addDiscussPost(String title, String content) {
@@ -53,6 +58,13 @@ public class DiscussPostController implements CommunityConstant {
         discussPost.setStatus(0);
         discussPost.setCreateTime(new Date());
         discussPostService.addDiscussPost(discussPost);
+
+        EventDTO event = new EventDTO()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(discussPost.getId());
+        eventProducer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0, "发布成功！");
     }

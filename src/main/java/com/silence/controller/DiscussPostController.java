@@ -132,4 +132,47 @@ public class DiscussPostController implements CommunityConstant {
         model.addAttribute("page", page);
         return "/site/discuss-detail";
     }
+
+    @PostMapping("/top")
+    @ResponseBody
+    public String setTop(Integer id) {
+        discussPostService.updateType(id, 1);
+        EventDTO event = new EventDTO()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
+    @PostMapping("/wonderful")
+    @ResponseBody
+    public String setWonderful(Integer id) {
+        discussPostService.updateStatus(id, 1);
+        EventDTO event = new EventDTO()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public String setDelete(Integer id) {
+        discussPostService.updateStatus(id, 2);
+        EventDTO event = new EventDTO()
+                .setTopic(TOPIC_DELETE)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
 }

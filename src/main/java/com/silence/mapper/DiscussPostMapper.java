@@ -18,4 +18,8 @@ public interface DiscussPostMapper {
 
     int updateCommentCount(@Param("id") Integer id, @Param("commentCount") Integer commentCount);
 
+    int updateTypeById(@Param("id") Integer id, @Param("type") Integer type);
+
+    int updateStatusById(@Param("id") Integer id, @Param("status") Integer status);
+
 }

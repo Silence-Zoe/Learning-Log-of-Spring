@@ -141,8 +141,8 @@ public class MessageController implements CommunityConstant {
         UserDO user = hostHolder.getUser();
 
         MessageDO message = messageService.getLatestNotice(user.getId(), TOPIC_COMMENT);
-        Map<String, Object> messageVO = new HashMap<>();
         if (message != null) {
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -158,14 +158,13 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.countUnreadNotice(user.getId(), TOPIC_COMMENT);
             messageVO.put("unread", unread);
-        } else {
-            messageVO.put("message", null);
+
+            model.addAttribute("commentNotice", messageVO);
         }
-        model.addAttribute("commentNotice", messageVO);
 
         message = messageService.getLatestNotice(user.getId(), TOPIC_LIKE);
-        messageVO = new HashMap<>();
         if (message != null) {
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -181,14 +180,13 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.countUnreadNotice(user.getId(), TOPIC_LIKE);
             messageVO.put("unread", unread);
-        } else {
-            messageVO.put("message", null);
+
+            model.addAttribute("likeNotice", messageVO);
         }
-        model.addAttribute("likeNotice", messageVO);
 
         message = messageService.getLatestNotice(user.getId(), TOPIC_FOLLOW);
-        messageVO = new HashMap<>();
         if (message != null) {
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -203,10 +201,9 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.countUnreadNotice(user.getId(), TOPIC_FOLLOW);
             messageVO.put("unread", unread);
-        } else {
-            messageVO.put("message", null);
+
+            model.addAttribute("followNotice", messageVO);
         }
-        model.addAttribute("followNotice", messageVO);
 
         int unreadLetterCount = messageService.countUnreadLetters(user.getId(), null);
         model.addAttribute("unreadLetterCount", unreadLetterCount);

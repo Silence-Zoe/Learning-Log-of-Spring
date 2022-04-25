@@ -13,7 +13,12 @@
         <if test="userId != 0">
            AND user_id = #{userId}
         </if>
+        <if test="orderMode == 0">
          ORDER BY type DESC, create_time DESC
+        </if>
+        <if test="orderMode == 1">
+         ORDER BY type DESC, score DESC, create_time DESC
+        </if>
          LIMIT #{offSet}, #{pageSize};
     </select>
 
@@ -52,6 +57,12 @@
     <update id="updateStatusById">
         UPDATE discuss_post
            SET status = #{status}
+         WHERE id = #{id};
+    </update>
+
+    <update id="updateScoreById">
+        UPDATE discuss_post
+           SET score = #{score}
          WHERE id = #{id};
     </update>
 

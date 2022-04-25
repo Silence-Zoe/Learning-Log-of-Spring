@@ -18,8 +18,8 @@ public class DiscussPostService {
     @Autowired
     private SensitiveFilter sensitiveFilter;
 
-    public List<DiscussPostDO> listPage(Integer userId, int offSet, int pageSize) {
-        return discussPostMapper.listPage(userId, offSet, pageSize);
+    public List<DiscussPostDO> listPage(Integer userId, int offSet, int pageSize, int orderMode) {
+        return discussPostMapper.listPage(userId, offSet, pageSize, orderMode);
     }
 
     public int countRows(Integer userId) {
@@ -55,6 +55,10 @@ public class DiscussPostService {
 
     public int updateStatus(Integer id, Integer status) {
         return discussPostMapper.updateStatusById(id, status);
+    }
+
+    public int updateScore(Integer id, Double score) {
+        return discussPostMapper.updateScoreById(id, score);
     }
 
 }

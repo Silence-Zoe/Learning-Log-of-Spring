@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface DiscussPostMapper {
-    List<DiscussPostDO> listPage(@Param("userId") Integer userId, @Param("offSet") int offSet, @Param("pageSize") int pageSize);
+    List<DiscussPostDO> listPage(@Param("userId") Integer userId, @Param("offSet") int offSet, @Param("pageSize") int pageSize, @Param("orderMode") int orderMode);
 
     int countRows(@Param("userId") Integer userId);
 
@@ -21,5 +21,7 @@ public interface DiscussPostMapper {
     int updateTypeById(@Param("id") Integer id, @Param("type") Integer type);
 
     int updateStatusById(@Param("id") Integer id, @Param("status") Integer status);
+
+    int updateScoreById(@Param("id") Integer id, @Param("score") Double score);
 
 }

@@ -20,7 +20,7 @@ public class DiscussPostMapperTest {
 
     @Test
     public void testListPage() {
-        var list = discussPostMapper.listPage(103, 2,4);
+        var list = discussPostMapper.listPage(103, 2,4, 0);
         for (var dp : list) {
             System.out.println(dp);
         }

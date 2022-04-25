@@ -17,7 +17,7 @@ public class DiscussPostServiceTest {
 
     @Test
     public void testListPage() {
-        System.out.println(discussPostService.listPage(111, 2, 3));
+        System.out.println(discussPostService.listPage(111, 2, 3, 0));
     }
 
     @Test

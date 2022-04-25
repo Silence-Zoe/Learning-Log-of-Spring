@@ -54,21 +54,21 @@ public class DiscussPostRepositoryTest {
 
     @Test
     public void testSaveList() {
-        discussPostRepository.saveAll(discussPostMapper.listPage(101, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(102, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(103, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(111, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(112, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(131, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(132, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(133, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(134, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(138, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(145, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(146, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(11, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(149, 0, 100));
-        discussPostRepository.saveAll(discussPostMapper.listPage(161, 0, 100));
+        discussPostRepository.saveAll(discussPostMapper.listPage(101, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(102, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(103, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(111, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(112, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(131, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(132, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(133, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(134, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(138, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(145, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(146, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(11, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(149, 0, 100, 0));
+        discussPostRepository.saveAll(discussPostMapper.listPage(161, 0, 100, 0));
     }
 
     @Test
